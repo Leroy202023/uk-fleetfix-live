@@ -1,13 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const gocardless = require('gocardless-nodejs');
-const { webhooks, Environments } = require('gocardless-nodejs');
+const { webhooks } = require('gocardless-nodejs');
 
 const app = express();
 const port = process.env.PORT || 3000;
 const LIVE_ACCESS_TOKEN = process.env.GC_ACCESS_TOKEN || 'live_iurGM-up92x3eYmgN19y51_R3y1s1zxRz6iUGvWk';
 const WEBHOOK_SECRET = process.env.GC_WEBHOOK_SECRET || 'secret';
-const gcClient = gocardless(LIVE_ACCESS_TOKEN, Environments.Live);
+const gcClient = gocardless(LIVE_ACCESS_TOKEN, 'live');
 
 app.post('/api/webhooks/gocardless', express.raw({ type: 'application/json' }), (req, res) => {
   const signatureHeader = req.headers['webhook-signature'];
